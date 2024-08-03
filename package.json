@@ -13,13 +13,6 @@
   "license": "MIT",
   "author": "Karin",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.js",
-      "types": "./lib/index.d.ts"
-    }
-  },
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
