@@ -1,0 +1,62 @@
+{
+  "name": "@karinjs/md-html",
+  "version": "0.0.1",
+  "description": "Convert Markdown text to HTML text",
+  "homepage": "https://github.com/KarinJS/md-html",
+  "bugs": {
+    "url": "https://github.com/KarinJS/md-html/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KarinJS/md-html.git"
+  },
+  "license": "MIT",
+  "author": "Karin",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "files": [
+    "/lib/**/*.js",
+    "/lib/**/*.d.ts",
+    "index.html",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && npm run fix",
+    "fix": "eslint lib/**/*.js --fix",
+    "fix:all": "eslint lib/**/*.js --fix && eslint lib/**/*.d.ts --fix",
+    "pub": "npm publish --access public"
+  },
+  "dependencies": {
+    "github-markdown-css": "^5.6.1",
+    "highlight.js": "^11.10.0",
+    "marked": "^13.0.3",
+    "marked-alert": "2.0.1",
+    "marked-katex-extension": "^5.1.0",
+    "mustache": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/mustache": "^4.2.5",
+    "@types/node": "^20.14.11",
+    "eslint": "^9.7.0",
+    "neostandard": "^0.11.1",
+    "tsc-alias": "^1.8.10",
+    "typescript": "^5.5.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}
