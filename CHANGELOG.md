@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/KarinJS/md-html/compare/v1.0.1...v1.0.2) (2024-08-03)
+
+
+### Bug Fixes
+
+* exports error ([c4fac01](https://github.com/KarinJS/md-html/commit/c4fac0168003618e98c57286ff1a2ac80a1b9845))
+
 ## [1.0.1](https://github.com/KarinJS/md-html/compare/v1.0.0...v1.0.1) (2024-08-03)
 
 
