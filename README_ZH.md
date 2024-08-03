@@ -2,6 +2,8 @@
 
 md-html
 
+[English](README.md)
+
 ## 项目简介
 
 `md-html` 是一个用于渲染 Markdown 文件为 HTML 的工具，使用 GitHub 风格的 Markdown 样式和代码高亮，同时集成了 `marked-alert` 和 `marked-katex-extension` 插件，方便处理提示信息和数学公式。

@@ -2,6 +2,8 @@
 
 md-html
 
+[中文](README_ZH.md)
+
 ## Project Overview
 
 `md-html` is a tool for rendering Markdown files to HTML, using GitHub-style Markdown and syntax highlighting. It also integrates `marked-alert` and `marked-katex-extension` plugins for handling alerts and mathematical formulas.
