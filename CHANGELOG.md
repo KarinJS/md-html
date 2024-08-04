@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/KarinJS/md-html/compare/v1.0.2...v1.1.0) (2024-08-04)
+
+
+### Features
+
+* 行号 ([d4ce9c1](https://github.com/KarinJS/md-html/commit/d4ce9c1f24ac952a22cd8f477e26b9670f47bf23))
+
 ## [1.0.2](https://github.com/KarinJS/md-html/compare/v1.0.1...v1.0.2) (2024-08-03)
 
 
