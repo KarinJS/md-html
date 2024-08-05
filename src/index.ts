@@ -7,6 +7,8 @@ import { fileURLToPath } from 'url'
 import markedAlert from 'marked-alert'
 import markedKatex from 'marked-katex-extension'
 import { GithubMarkdownThemes, HighlightJsThemes } from './styles'
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
 
 /** 提取 KatexOptions 类型 */
 export type KatexOptions = Parameters<typeof markedKatex>[0]
@@ -40,14 +42,35 @@ export default class Markdown {
   highlight: string
   /** marked 实例 */
   marked: typeof marked
+  /** github-markdown-css npm包路径 */
+  npm_github_markdown_css: string
+  /** highlight.js npm包路径 */
+  npm_highlight_js: string
   constructor (config: Options) {
     this.config = config
     this.templatepath = pkgpath + '/index.html'
     this.template = ''
-    this.gitcss = `./node_modules/github-markdown-css/${GithubMarkdownThemes.GitHub}`
-    this.highlight = `./node_modules/highlight.js/styles/${HighlightJsThemes.GitHub}`
+    this.npm_github_markdown_css = this.findPackageRoot(require.resolve('github-markdown-css'))
+    this.npm_highlight_js = this.findPackageRoot(require.resolve('highlight.js'))
+
+    this.gitcss = `${this.npm_github_markdown_css}/${GithubMarkdownThemes.GitHub}`
+    this.highlight = `${this.npm_highlight_js}/styles/${HighlightJsThemes.GitHub}`
     this.marked = marked
     this.init()
+  }
+
+  /**
+   * 查找包根目录
+   * @param dir - 当前目录
+   * @returns - 包根目录
+   */
+  findPackageRoot (dir: string): string {
+    if (fs.existsSync(path.join(dir, 'package.json'))) return dir
+    const parentDir = path.dirname(dir)
+    if (parentDir === dir) {
+      throw new Error('Cannot find package root directory')
+    }
+    return this.findPackageRoot(parentDir)
   }
 
   init () {
@@ -73,8 +96,8 @@ export default class Markdown {
     this.marked.use(markedKatex(this.config?.katex))
 
     /** 检查是否有传入样式 */
-    if (this.config?.gitcss) this.gitcss = `./node_modules/github-markdown-css/${this.config.gitcss}`
-    if (this.config?.highlight) this.highlight = `./node_modules/highlight.js/styles/${this.config.highlight}`
+    if (this.config?.gitcss) this.gitcss = `${this.npm_github_markdown_css}/${this.config.gitcss}`
+    if (this.config?.highlight) this.highlight = `${this.npm_highlight_js}/styles/${this.config.highlight}`
 
     /** 检查是否有传入模板 */
     if (this.config?.template) {
