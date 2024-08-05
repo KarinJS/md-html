@@ -94,12 +94,14 @@ export default class Markdown {
     const style = `
     pre {
       position: relative;
+      padding: 0;
+      margin: 0;
     }
-
+  
     pre code {
       padding-left: 3.8em;
     }
-
+  
     .hljs-line::before {
       content: attr(data-line-number);
       display: inline-block;
@@ -109,12 +111,16 @@ export default class Markdown {
       color: #999;
       border-right: 1px solid #ddd;
       padding-right: 0.5em;
+      line-height: 0;
+      vertical-align: middle;
     }
-
+  
     .hljs .hljs-line {
       display: block;
       padding-right: 0.5em;
       padding-left: 0.5em;
+      line-height: 0;
+      margin: 0;
     }
   `
 
