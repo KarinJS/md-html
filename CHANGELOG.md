@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/KarinJS/md-html/compare/v1.1.1...v1.1.2) (2024-08-05)
+
+
+### Bug Fixes
+
+* 代码块间距 ([5f0cb65](https://github.com/KarinJS/md-html/commit/5f0cb65f5264713b602bf0b79ff9e32ce81fba94))
+
 ## [1.1.1](https://github.com/KarinJS/md-html/compare/v1.1.0...v1.1.1) (2024-08-05)
 
 
