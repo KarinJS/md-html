@@ -92,34 +92,37 @@ export default class Markdown {
    */
   render (markdown: string): string {
     const style = `
-    <style>
-      pre {
-        position: relative
-      }
-      pre code {
-        padding-left: 3.8em
-      }
-      .hljs-line::before {
-        content: attr(data-line-number)
-        display: inline-block
-        width: 2em
-        margin-left: -2.5em
-        text-align: right
-        color: #999
-        border-right: 1px solid #ddd
-        padding-right: 0.5em
-      }
-      .hljs .hljs-line {
-        display: block
-        padding-right: 0.5em
-        padding-left: 0.5em
-      }
-    </style>
+    pre {
+      position: relative;
+    }
+
+    pre code {
+      padding-left: 3.8em;
+    }
+
+    .hljs-line::before {
+      content: attr(data-line-number);
+      display: inline-block;
+      width: 2em;
+      margin-left: -2.5em;
+      text-align: right;
+      color: #999;
+      border-right: 1px solid #ddd;
+      padding-right: 0.5em;
+    }
+
+    .hljs .hljs-line {
+      display: block;
+      padding-right: 0.5em;
+      padding-left: 0.5em;
+    }
   `
 
     /** 判断下是否为路径 */
     const htmlContent = marked(fs.existsSync(markdown) ? fs.readFileSync(markdown, 'utf-8') : markdown)
-    return mustache.render(this.template, { gitcss: this.gitcss, highlight: this.highlight, htmlContent, style })
+    const gitcss = fs.readFileSync(this.gitcss, 'utf-8')
+    const highlight = fs.readFileSync(this.highlight, 'utf-8')
+    return mustache.render(this.template, { gitcss, highlight, htmlContent, style })
   }
 }
 
