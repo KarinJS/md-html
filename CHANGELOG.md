@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/KarinJS/md-html/compare/v1.1.0...v1.1.1) (2024-08-05)
+
+
+### Bug Fixes
+
+* 修复相对路径错误问题 ([c486948](https://github.com/KarinJS/md-html/commit/c4869485f7d95eddd3ba42581f7c69ce34040940))
+
 ## [1.1.0](https://github.com/KarinJS/md-html/compare/v1.0.2...v1.1.0) (2024-08-04)
 
 
