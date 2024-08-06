@@ -48,13 +48,38 @@ import { markdown } from '@karinjs/md-html'
 const options = {
   template: 'path/to/custom/template.html',
   katex: { throwOnError: false },
-  gitcss: 'dark', // Use GitHub-style dark theme
+  gitcss: 'github-markdown-dark.css', // Use GitHub-style dark theme
   highlight: 'atom-one-dark', // Use Atom One Dark syntax highlighting theme
 }
 
 const markdownText = '# Hello, Markdown!'
 const html = markdown(markdownText, options)
 console.log(html)
+```
+
+### Use in Karin
+
+```javascript
+import karin, { render, segment } from 'node-karin'
+import { markdown } from '@karinjs/md-html'
+import fs from 'node:fs'
+
+export const hello = karin.command(/^#test$/, async (e) => {
+  // define plugin path
+  const pluginPath = process.cwd() + '/plugins/karin-plugin-basic'
+  // read the markdown file
+  const markdownText = fs.readFileSync(`${pluginPath}/README.md`, 'utf8')
+  // generate html text
+  const html = markdown(markdownText, {})
+  // write to html file
+  fs.writeFileSync(`${pluginPath}/README.html`, html, 'utf8')
+  // render picture
+  const image = await render.renderHtml(`${pluginPath}/README.html`)
+  // send pictures
+  e.reply(segment.image(image))
+  return true
+})
+
 ```
 
 ## Configuration Options

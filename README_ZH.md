@@ -36,6 +36,7 @@ import { markdown } from '@karinjs/md-html'
 const markdownText = '# Hello, Markdown!'
 const html = markdown(markdownText, {})
 console.log(html)
+
 ```
 
 ### 配置参数
@@ -48,7 +49,7 @@ import { markdown } from '@karinjs/md-html'
 const options = {
   template: 'path/to/custom/template.html',
   katex: { throwOnError: false },
-  gitcss: 'dark', // 使用 GitHub 风格的暗色主题
+  gitcss: 'github-markdown-dark.css', // 使用 GitHub 风格的暗色主题
   highlight: 'atom-one-dark', // 使用 Atom One Dark 代码高亮主题
 }
 
@@ -57,14 +58,38 @@ const html = markdown(markdownText, options)
 console.log(html)
 ```
 
+### Karin 中使用
+
+```javascript
+import karin, { render, segment } from 'node-karin'
+import { markdown } from '@karinjs/md-html'
+import fs from 'node:fs'
+
+export const hello = karin.command(/^#test$/, async (e) => {
+  // 定义插件路径
+  const pluginPath = process.cwd() + '/plugins/karin-plugin-basic'
+  // 读取markdown文件
+  const markdownText = fs.readFileSync(`${pluginPath}/README.md`, 'utf8')
+  // 生成html文本
+  const html = markdown(markdownText, {})
+  // 写入html文件
+  fs.writeFileSync(`${pluginPath}/README.html`, html, 'utf8')
+  // 生成图片
+  const image = await render.renderHtml(`${pluginPath}/README.html`)
+  // 发送图片
+  e.reply(segment.image(image))
+  return true
+})
+```
+
 ## 配置选项
 
 `Options` 接口定义了可配置的选项：
 
 - `template` (可选): 自定义 HTML 模板的文件路径或模板字符串。
 - `katex` (可选): KaTeX 的配置选项，具体参考 [KaTeX 文档](https://katex.org/docs/options.html)。
-- `gitcss` (可选): GitHub Markdown 样式主题，可选值见 `GithubMarkdownThemes` 枚举。
-- `highlight` (可选): 代码高亮主题，可选值见 `HighlightJsThemes` 枚举。
+- `gitcss` (可选): GitHub Markdown 样式主题，可选值见 [**`GithubMarkdownThemes`**](https://github.com/KarinJS/md-html/blob/d804420af9c0eb3960533b4400568ea15bc076aa/src/styles.ts#L2) 枚举。
+- `highlight` (可选): 代码高亮主题，可选值见 [**`HighlightJsThemes`**](https://github.com/KarinJS/md-html/blob/d804420af9c0eb3960533b4400568ea15bc076aa/src/styles.ts#L20) 枚举。
 
 ## 开发与构建
 
