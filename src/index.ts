@@ -81,7 +81,7 @@ export default class Markdown {
         const highlighted = hljs.highlight(code, { language, ignoreIllegals: true }).value
 
         const lines = highlighted.split('\n').map((line, i) => {
-          return `<span class="hljs-line" data-line-number="${i + 1}">${line}</span>`
+          return `<div class="hljs-line" data-line-number="${i + 1}">${line}</div>`
         }).join('\n')
 
         return `<pre><code class="hljs ${language}">${lines}</code></pre>`
