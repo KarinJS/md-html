@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/KarinJS/md-html/compare/v1.1.4...v1.1.5) (2024-09-16)
+
+
+### Bug Fixes
+
+* 修改行数为可显示千位数 ([3729e9a](https://github.com/KarinJS/md-html/commit/3729e9ab65c8714ef60b6c9a6b153d8b102b6a17))
+
 ## [1.1.4](https://github.com/KarinJS/md-html/compare/v1.1.3...v1.1.4) (2024-09-16)
 
 
