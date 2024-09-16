@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/KarinJS/md-html/compare/v1.1.3...v1.1.4) (2024-09-16)
+
+
+### Bug Fixes
+
+* 修正jsdoc注释显示错误 ([2e48729](https://github.com/KarinJS/md-html/commit/2e487294e538f08888d29d97600aeaf0307bc3a4))
+
 ## [1.1.3](https://github.com/KarinJS/md-html/compare/v1.1.2...v1.1.3) (2024-08-05)
 
 
