@@ -128,9 +128,9 @@ export default class Markdown {
     .hljs-line::before {
       content: attr(data-line-number);
       display: inline-block;
-      width: 2em;
-      margin-left: -2.5em;
-      text-align: right;
+      width: 2.2em;
+      margin-left: -2.0em;
+      text-align: left;
       color: #999;
       border-right: 1px solid #ddd;
       padding-right: 0.5em;
@@ -141,7 +141,7 @@ export default class Markdown {
     .hljs .hljs-line {
       display: block;
       padding-right: 0.5em;
-      padding-left: 0.5em;
+      padding-left: 1.5em;
       line-height: 0;
       margin: 0;
     }
