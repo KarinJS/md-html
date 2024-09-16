@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6](https://github.com/KarinJS/md-html/compare/v1.1.5...v1.1.6) (2024-09-16)
+
+
+### Bug Fixes
+
+* 如果传递的是文件路径 自动识别对应语言 ([d7440f3](https://github.com/KarinJS/md-html/commit/d7440f32b442b9239706c2a9d0fcd57c61e13065))
+
 ## [1.1.5](https://github.com/KarinJS/md-html/compare/v1.1.4...v1.1.5) (2024-09-16)
 
 
