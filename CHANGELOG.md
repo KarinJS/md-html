@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7](https://github.com/KarinJS/md-html/compare/v1.1.6...v1.1.7) (2025-01-19)
+
+
+### Bug Fixes
+
+* 默认使用noto sans ([0363281](https://github.com/KarinJS/md-html/commit/03632812854d4ae5382b4467a143c6751914da7f))
+
 ## [1.1.6](https://github.com/KarinJS/md-html/compare/v1.1.5...v1.1.6) (2024-09-16)
 
 
