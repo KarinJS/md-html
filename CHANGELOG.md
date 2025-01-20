@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.8](https://github.com/KarinJS/md-html/compare/v1.1.7...v1.1.8) (2025-01-20)
+
+
+### Bug Fixes
+
+* 都怪格式化。。。 ([edea206](https://github.com/KarinJS/md-html/commit/edea2062785efa768669551115986468048cd5ad))
+
 ## [1.1.7](https://github.com/KarinJS/md-html/compare/v1.1.6...v1.1.7) (2025-01-19)
 
 
