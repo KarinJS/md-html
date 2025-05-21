@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/KarinJS/md-html/compare/v1.1.8...v1.2.0) (2025-05-21)
+
+
+### Features
+
+* 优化体积 ([a6e497b](https://github.com/KarinJS/md-html/commit/a6e497b8b643d8459f86fdab926fea385c7e4ae3))
+
 ## [1.1.8](https://github.com/KarinJS/md-html/compare/v1.1.7...v1.1.8) (2025-01-20)
 
 
