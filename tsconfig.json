@@ -13,18 +13,14 @@
     "sourceMap": false,
     "strict": true,
     "target": "ESNext",
+    "noEmit": true,
     "types": [
-      "@types/node"
-    ]
+      "node"
+    ],
   },
-  "exclude": [
-    "node_modules"
-  ],
   "include": [
-    "src/**/*"
-  ],
-  "tsc-alias": {
-    "resolveFullExtension": ".js",
-    "resolveFullPaths": true
-  }
+    "src/**/*",
+    "node_modules/marked",
+    "node_modules/marked-katex-extension"
+  ]
 }

@@ -7,8 +7,6 @@ import { fileURLToPath } from 'url'
 import markedAlert from 'marked-alert'
 import markedKatex from 'marked-katex-extension'
 import { GithubMarkdownThemes, HighlightJsThemes } from './styles'
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
 
 /** 提取 KatexOptions 类型 */
 export type KatexOptions = Parameters<typeof markedKatex>[0]
@@ -25,11 +23,77 @@ export interface Options {
   highlight?: `${HighlightJsThemes}`
 }
 
+const markedClient = (() => {
+  /** 使用自定义渲染器来进行代码高亮并添加行号 */
+  marked.use({
+    renderer: {
+      code (code) {
+        let language = code.lang
+        if (!language) {
+          language = hljs.getLanguage(code.raw) as unknown as string
+          language = 'plaintext'
+        }
+
+        const highlighted = hljs.highlight(code.text, { language, ignoreIllegals: true }).value
+
+        const lines = highlighted.split('\n').map((line, i) => {
+          return `<div class="hljs-line" data-line-number="${i + 1}">${line}</div>`
+        }).join('\n')
+
+        return `<pre><code class="hljs ${language}">${lines}</code></pre>`
+      },
+    },
+  })
+  /** 载入 marked-alert 插件 */
+  marked.use(markedAlert())
+  return marked
+})()
+
 /** 当前 npm 包的绝对路径 */
-export const pkgpath = path.resolve(fileURLToPath(import.meta.url), '../../').replace(/\\/g, '/')
+export const pkgpath = path.resolve(fileURLToPath(import.meta.url), '../../')
+/** 默认html模板名称 */
+export const htmlPath = path.join(pkgpath, 'index.html')
+
+const { getGithubCssPath, gethighlightPath } = (() => {
+  const dir = path.join(fileURLToPath(import.meta.url), '../', 'public')
+  let githubDir = path.join(dir, 'github-markdown-css')
+  let hljsDir = path.join(dir, 'highlight')
+  if (!fs.existsSync(dir)) {
+    githubDir = path.join(process.cwd(), 'node_modules', 'github-markdown-css')
+    hljsDir = path.join(process.cwd(), 'node_modules', 'highlight.js', 'styles')
+  }
+
+  return {
+    /**
+     * 获取 githubcss 的css样式路径
+     * @param name 文件名称
+     */
+    getGithubCssPath: (name: `${GithubMarkdownThemes}`) => {
+      return path.join(githubDir, name)
+    },
+    /**
+     * 获取 highlight.js 的css样式路径
+     * @param name 文件名称
+     * @returns
+     */
+    gethighlightPath: (name: `${HighlightJsThemes}`) => {
+      /** 如果name没有min 则编辑 */
+      if (!name.includes('min')) {
+        const parsedPath = path.parse(name)
+        const newName = path.format({
+          dir: parsedPath.dir,
+          name: `${parsedPath.name}.min`,
+          ext: parsedPath.ext,
+        }) as `${HighlightJsThemes}`
+        name = newName
+      }
+      return path.join(hljsDir, name)
+    },
+  }
+})()
 
 /** Markdown 渲染器 */
-export default class Markdown {
+export class Markdown {
   /** 渲染参数 */
   config?: Options
   /** Html模板内容 */
@@ -41,63 +105,25 @@ export default class Markdown {
   /** Highlight主题配置 */
   highlight: string
   /** marked 实例 */
-  marked: typeof marked
-  /** github-markdown-css npm包路径 */
-  npm_github_markdown_css: string
-  /** highlight.js npm包路径 */
-  npm_highlight_js: string
+  marked: typeof markedClient
   constructor (config: Options) {
     this.config = config
-    this.templatepath = pkgpath + '/index.html'
+    this.templatepath = htmlPath
     this.template = ''
-    this.npm_github_markdown_css = this.findPackageRoot(require.resolve('github-markdown-css'))
-    this.npm_highlight_js = this.findPackageRoot(require.resolve('highlight.js'))
 
-    this.gitcss = `${this.npm_github_markdown_css}/${GithubMarkdownThemes.GitHub}`
-    this.highlight = `${this.npm_highlight_js}/styles/${HighlightJsThemes.GitHub}`
-    this.marked = marked
+    this.gitcss = getGithubCssPath(GithubMarkdownThemes.GitHub)
+    this.highlight = gethighlightPath(HighlightJsThemes.GitHub)
+    this.marked = markedClient
     this.init()
   }
 
-  /**
-   * 查找包根目录
-   * @param dir - 当前目录
-   * @returns - 包根目录
-   */
-  findPackageRoot (dir: string): string {
-    if (fs.existsSync(path.join(dir, 'package.json'))) return dir
-    const parentDir = path.dirname(dir)
-    if (parentDir === dir) {
-      throw new Error('Cannot find package root directory')
-    }
-    return this.findPackageRoot(parentDir)
-  }
-
   init () {
-    /** 使用自定义渲染器来进行代码高亮并添加行号 */
-    const renderer: any = {
-      code (code: string, infostring: string) {
-        const language = hljs.getLanguage(infostring) ? infostring : 'plaintext'
-        const highlighted = hljs.highlight(code, { language, ignoreIllegals: true }).value
-
-        const lines = highlighted.split('\n').map((line, i) => {
-          return `<div class="hljs-line" data-line-number="${i + 1}">${line}</div>`
-        }).join('\n')
-
-        return `<pre><code class="hljs ${language}">${lines}</code></pre>`
-      },
-    }
-
-    /** 载入自定义渲染器 */
-    this.marked.use({ renderer })
-    /** 载入 marked-alert 插件 */
-    this.marked.use(markedAlert())
     /** 载入 marked-katex-extension 插件 */
     this.marked.use(markedKatex(this.config?.katex))
 
     /** 检查是否有传入样式 */
-    if (this.config?.gitcss) this.gitcss = `${this.npm_github_markdown_css}/${this.config.gitcss}`
-    if (this.config?.highlight) this.highlight = `${this.npm_highlight_js}/styles/${this.config.highlight}`
+    if (this.config?.gitcss) this.gitcss = getGithubCssPath(this.config.gitcss)
+    if (this.config?.highlight) this.highlight = gethighlightPath(this.config.highlight)
 
     /** 检查是否有传入模板 */
     if (this.config?.template) {
@@ -149,12 +175,17 @@ export default class Markdown {
 
     /** 判断下是否为路径 */
     if (typeof markdown === 'string' && fs.existsSync(markdown)) {
-      const lang = path.extname(markdown).replace(/^\./, '')
-      markdown = [
-        '```' + lang,
-        fs.readFileSync(markdown, 'utf-8'),
-        '```',
-      ].join('\n')
+      /** 如果是md文件 直接读取文件内容 */
+      if (path.extname(markdown) === '.md') {
+        markdown = fs.readFileSync(markdown, 'utf-8')
+      } else {
+        const lang = path.extname(markdown).replace(/^\./, '')
+        markdown = [
+          '```' + lang,
+          fs.readFileSync(markdown, 'utf-8'),
+          '```',
+        ].join('\n')
+      }
     }
 
     const htmlContent = marked(markdown)
@@ -174,3 +205,5 @@ export const markdown = (text: string, options: Options) => {
   const md = new Markdown(options)
   return md.render(text)
 }
+
+export default Markdown

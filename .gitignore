@@ -1,9 +1,3 @@
-# 包管理器文件
-.npmrc
-yarn.lock
-pnpm-lock.yaml
-package-lock.json
-
 # 包管理器日志
 npm-debug.log*
 yarn-debug.log*
@@ -16,3 +10,5 @@ node_modules/
 
 # 编译后的文件
 lib/
+/dist
+/test

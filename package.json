@@ -13,37 +13,32 @@
   "license": "MIT",
   "author": "Karin",
   "type": "module",
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
-    "/lib/**/*.js",
-    "/lib/**/*.d.ts",
-    "index.html",
-    "LICENSE",
-    "package.json",
-    "README.md"
+    "dist"
   ],
   "scripts": {
-    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && npm run fix",
-    "fix": "eslint lib/**/*.js --fix",
-    "fix:all": "eslint lib/**/*.js --fix && eslint lib/**/*.d.ts --fix",
-    "pub": "npm publish --access public"
-  },
-  "dependencies": {
-    "github-markdown-css": "^5.6.1",
-    "highlight.js": "^11.10.0",
-    "marked": "^13.0.3",
-    "marked-alert": "2.0.1",
-    "marked-katex-extension": "^5.1.0",
-    "mustache": "^4.2.0"
+    "build": "tsc && vite build && tsup",
+    "pub": "npm publish --access public",
+    "test": "tsx src/test.index.ts",
+    "test:prod": "tsx src/test.index.ts --prod"
   },
   "devDependencies": {
-    "@types/mustache": "^4.2.5",
-    "@types/node": "^20.14.11",
-    "eslint": "^9.7.0",
-    "neostandard": "^0.11.1",
-    "tsc-alias": "^1.8.10",
-    "typescript": "^5.5.3"
+    "@types/katex": "^0.16.7",
+    "@types/mustache": "^4.2.6",
+    "@types/node": "^20.17.50",
+    "eslint": "^9.27.0",
+    "github-markdown-css": "^5.8.1",
+    "highlight.js": "^11.11.1",
+    "marked": "^15.0.12",
+    "marked-alert": "2.1.2",
+    "marked-katex-extension": "^5.1.4",
+    "mustache": "^4.2.0",
+    "neostandard": "^0.12.1",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
   },
   "engines": {
     "node": ">=18"
