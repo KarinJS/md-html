@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/KarinJS/md-html/compare/v1.2.0...v1.2.1) (2025-05-21)
+
+
+### Bug Fixes
+
+* 修复神奇的bug ([ab84c65](https://github.com/KarinJS/md-html/commit/ab84c65a5b3a417b0fc63a72857f8c28fc3b3893))
+
 ## [1.2.0](https://github.com/KarinJS/md-html/compare/v1.1.8...v1.2.0) (2025-05-21)
 
 
