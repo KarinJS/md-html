@@ -16,7 +16,8 @@
   "main": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "index.html"
   ],
   "scripts": {
     "build": "tsc && vite build && tsup",
