@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/KarinJS/md-html/compare/v1.2.2...v1.3.0) (2025-06-15)
+
+
+### Features
+
+* **markdown:** 添加字体、缩放和自定义CSS支持 ([828af2f](https://github.com/KarinJS/md-html/commit/828af2f345c28a9ca27f46fe0011e54eb34939e5))
+
 ## [1.2.2](https://github.com/KarinJS/md-html/compare/v1.2.1...v1.2.2) (2025-06-15)
 
 
