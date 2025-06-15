@@ -1,7 +1,11 @@
 import fs from 'fs'
+import type { Options, Markdown as MarkdownClass } from './index.js'
 
 const dir = process.argv.includes('--prod') ? '../dist/index.mjs' : './index.ts'
-const { Markdown, markdown } = await import(dir)
+const { Markdown, markdown }: {
+  Markdown: typeof MarkdownClass
+  markdown: (text: string, options: Options) => string
+} = await import(dir)
 
 // 测试Markdown文本
 const testMarkdown = `

@@ -20,7 +20,7 @@
     "index.html"
   ],
   "scripts": {
-    "build": "tsc && vite build && tsup",
+    "build": "vite build && tsup",
     "pub": "npm publish --access public",
     "test": "tsx src/test.index.ts",
     "test:prod": "tsx src/test.index.ts --prod"
