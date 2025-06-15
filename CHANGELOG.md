@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/KarinJS/md-html/compare/v1.2.1...v1.2.2) (2025-06-15)
+
+
+### Bug Fixes
+
+* **Markdown:** 支持直接传入模板字符串作为配置 ([ca8a08c](https://github.com/KarinJS/md-html/commit/ca8a08c7c37fb23a44d4193d19cfebc345a2fd3a))
+
 ## [1.2.1](https://github.com/KarinJS/md-html/compare/v1.2.0...v1.2.1) (2025-05-21)
 
 
