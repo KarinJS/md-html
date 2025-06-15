@@ -127,9 +127,15 @@ export class Markdown {
 
     /** 检查是否有传入模板 */
     if (this.config?.template) {
-      if (!fs.existsSync(this.config.template)) throw TypeError('Template file not found')
-      this.templatepath = this.config.template
-      this.template = fs.readFileSync(this.config.template, 'utf-8')
+      // 判断是文件路径还是模板字符串
+      if (fs.existsSync(this.config.template)) {
+        // 是文件路径
+        this.templatepath = this.config.template
+        this.template = fs.readFileSync(this.config.template, 'utf-8')
+      } else {
+        // 是模板字符串
+        this.template = this.config.template
+      }
     } else {
       this.template = fs.readFileSync(this.templatepath, 'utf-8')
     }
